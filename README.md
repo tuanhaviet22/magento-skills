@@ -19,13 +19,15 @@ Scaffolds Magento 2 backend components with code generation for:
 
 ## Installation
 
-Add the skill to your Claude Code project:
-
 ```bash
-claude mcp add-skill /path/to/magento-skills/skills/magento2-backend-toolkit
+npx skills add tuanhaviet22/magento-skills
 ```
 
-Or copy the `skills/magento2-backend-toolkit/` directory into your project's `.claude/skills/` folder.
+To fetch the latest version:
+
+```bash
+npx skills add tuanhaviet22/magento-skills@latest
+```
 
 ## Usage
 
