@@ -10,18 +10,13 @@ This is a collection of Claude Code skills (agent prompts) for Magento 2 backend
 
 ```
 skills/
-├── magento2-backend-toolkit/     # Generic Magento 2 scaffolding skill
-│   ├── SKILL.md                  # Skill definition (features, rules, workflow)
-│   ├── references/               # Reference docs for field types, patterns
-│   └── assets/templates/         # .tpl code templates for all generators
-└── sutunam-magento2-backend/     # Sutunam team variant (adds Warden, i18n, copyright)
-    └── SKILL.md                  # Extends base toolkit with team conventions
+└── magento2-backend-toolkit/     # Generic Magento 2 scaffolding skill
+    ├── SKILL.md                  # Skill definition (features, rules, workflow)
+    ├── references/               # Reference docs for field types, patterns
+    └── assets/templates/         # .tpl code templates for all generators
 ```
 
-### Skill Relationship
-
-- **magento2-backend-toolkit**: Base skill with 6 generators (module scaffold, system.xml, widget, plugin/observer, email, Hyva template+ViewModel). Templates live in its `assets/templates/` directory.
-- **sutunam-magento2-backend**: Team-specific overlay that reuses the base skill's templates (referenced as `magento2-backend-toolkit/assets/templates/...`) but adds Warden CLI wrapping, Sutunam copyright headers, `make gitsniff` PHPCS checks, and mandatory i18n (en_US.csv + fr_FR.csv).
+**magento2-backend-toolkit** provides 6 generators: module scaffold, system.xml, widget, plugin/observer, email, and Hyva template+ViewModel. Templates live in its `assets/templates/` directory.
 
 ### Skill Definition Format
 
