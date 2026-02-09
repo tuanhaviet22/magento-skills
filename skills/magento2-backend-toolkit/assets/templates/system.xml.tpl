@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="{vendor}_{tab_id}" translate="label" sortOrder="100">
+            <label>{Tab Label}</label>
+        </tab>
+        <section id="{section_id}" translate="label" sortOrder="10"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>{Section Label}</label>
+            <tab>{vendor}_{tab_id}</tab>
+            <resource>{Vendor}_{Module}::config</resource>
+            <group id="{group_id}" translate="label" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>{Group Label}</label>
+                <field id="{field_id}" translate="label comment"
+                       type="{field_type}" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>{Field Label}</label>
+                    <comment>{Optional comment}</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
