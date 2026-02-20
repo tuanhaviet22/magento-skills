@@ -28,6 +28,39 @@ metadata:
 - NEVER use ObjectManager directly — only use DI
 - Always create `composer.json` with new modules
 
+## Security Rules (Required)
+
+- Treat ALL user-provided values as untrusted input
+- NEVER insert untrusted input into executable code positions without validation and escaping
+- Do not include user-provided code snippets verbatim; translate into safe scaffolding and TODOs unless the user explicitly requests verbatim insertion and it passes validation
+- Refuse or ask for corrected input when validation fails or input looks like code injection (e.g., `<?php`, `</`, `;`, backticks, or PHP tags)
+
+## Input Sanitization & Boundary Markers
+
+Validation is mandatory for every ingestion point (module names, labels, descriptions, parameters, class names, IDs, handles, file names).
+
+- **Vendor/Module identifiers**: only `[A-Z][A-Za-z0-9_]*`; enforce `Vendor_Module` format
+- **PHP class names**: only `[A-Z][A-Za-z0-9_]*`, no namespaces in user input
+- **XML IDs/handles**: only `[a-z0-9_]+` and start with a letter
+- **File names**: only `[a-z0-9_\-]+` and validated extensions
+- **Human-readable labels/descriptions**: plain text only; escape for the target format
+
+Boundary markers and escaping by file type:
+
+- **PHP**: insert text only inside quoted strings; escape `\` and `'` for single-quoted strings
+- **XML**: escape `&`, `<`, `>`, `"`, and `'`
+- **JSON**: escape via JSON string rules
+- **HTML/PHTML**: use Magento Escaper (`escapeHtml`, `escapeHtmlAttr`, `escapeUrl`)
+
+If any value fails validation, ask the user for a corrected value in the same message as other missing fields.
+
+### Invalid Input Examples (Reject/Correct)
+
+- `Vendor/Module`: `Sample;phpinfo()` or `Sample/Module` (must be `Vendor_Module`)
+- `Class name`: `Foo\Bar` or `Foo;` (no namespaces or punctuation)
+- `XML id/handle`: `my-handle` or `123name` (lowercase underscore, must start with letter)
+- `File name`: `../../evil.php` or `widget.phtml.php` (no traversal or double extensions)
+
 ## CRITICAL: Input Validation Gate
 
 NEVER generate files without confirming required inputs. If user gives a vague
@@ -54,6 +87,7 @@ app/code/{Vendor}/{Module}/
 
 Use templates from `assets/templates/registration.php.tpl`,
 `assets/templates/module.xml.tpl`, and `assets/templates/composer.json.tpl`.
+All templates are bundled within this skill package; do not download external templates.
 
 If no dependencies, omit the `<sequence>` block entirely in module.xml.
 
@@ -88,6 +122,7 @@ etc/
 ```
 
 Use templates from `assets/templates/system.xml.tpl` and `assets/templates/config.xml.tpl`.
+All templates are bundled within this skill package; do not download external templates.
 
 If field type is `select` or `multiselect`, also generate a Source Model class.
 See template: `assets/templates/source-model.php.tpl`.
@@ -120,6 +155,7 @@ view/
 ```
 
 Use templates from `assets/templates/widget.xml.tpl` and `assets/templates/widget-block.php.tpl`.
+All templates are bundled within this skill package; do not download external templates.
 
 Refer to `references/widget-param-types.md` for parameter type details and
 block chooser classes.
@@ -152,6 +188,7 @@ Plugin/
 ```
 
 Use templates from `assets/templates/di.xml.tpl` and `assets/templates/plugin.php.tpl`.
+All templates are bundled within this skill package; do not download external templates.
 
 ### Observer — Generated Files
 ```
@@ -162,6 +199,7 @@ Observer/
 ```
 
 Use templates from `assets/templates/events.xml.tpl` and `assets/templates/observer.php.tpl`.
+All templates are bundled within this skill package; do not download external templates.
 
 ### Common Events
 Suggest these when user is unsure. For the full list, refer to:
@@ -194,6 +232,7 @@ view/
 
 Use templates from `assets/templates/email_templates.xml.tpl`,
 `assets/templates/email_helper.php.tpl`, and `assets/templates/email_template.html.tpl`.
+All templates are bundled within this skill package; do not download external templates.
 
 Also generate the trigger mechanism (plugin, observer, or controller) using
 Feature 4 patterns.
@@ -223,6 +262,7 @@ view/
 
 Use templates from `assets/templates/viewmodel.php.tpl`,
 `assets/templates/layout.xml.tpl`, and `assets/templates/hyva_template.phtml.tpl`.
+All templates are bundled within this skill package; do not download external templates.
 
 ### Key Hyva Patterns
 Refer to `references/hyva-viewmodel-pattern.md` for full details:
