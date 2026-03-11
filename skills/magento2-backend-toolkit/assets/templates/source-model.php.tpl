@@ -8,6 +8,11 @@ use Magento\Framework\Data\OptionSourceInterface;
 
 class {SourceName} implements OptionSourceInterface
 {
+    /**
+     * Return array of options as value-label pairs
+     *
+     * @return array
+     */
     public function toOptionArray(): array
     {
         return [

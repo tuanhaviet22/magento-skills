@@ -26,6 +26,10 @@ metadata:
 - XML files must include proper XSD schema references
 - Default Vendor name: ask user, suggest `Sample` if not specified
 - NEVER use ObjectManager directly — only use DI
+- NEVER use constructor property promotion (`private readonly` in constructor params) — always declare properties explicitly above the constructor and assign them in the constructor body
+- ALL class properties MUST have a `@var` PHPDoc block with the fully-qualified class name
+- ALL constructors MUST have a `@param` PHPDoc block with fully-qualified class names for each parameter
+- ALL public and protected methods MUST have a PHPDoc block with a short description and `@param`/`@return` tags
 - Always create `composer.json` with new modules
 
 ## Security Rules (Required)

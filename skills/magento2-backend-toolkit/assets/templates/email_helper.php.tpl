@@ -15,16 +15,55 @@ class Email extends AbstractHelper
 {
     private const TEMPLATE_ID = '{vendor}_{module}_{template_id}';
 
+    /**
+     * @var \Magento\Framework\Mail\Template\TransportBuilder
+     */
+    private TransportBuilder $transportBuilder;
+
+    /**
+     * @var \Magento\Framework\Translate\Inline\StateInterface
+     */
+    private StateInterface $inlineTranslation;
+
+    /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
+    private StoreManagerInterface $storeManager;
+
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private LoggerInterface $logger;
+
+    /**
+     * @param \Magento\Framework\App\Helper\Context $context
+     * @param \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
+     * @param \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
+     * @param \Psr\Log\LoggerInterface $logger
+     */
     public function __construct(
         Context $context,
-        private readonly TransportBuilder $transportBuilder,
-        private readonly StateInterface $inlineTranslation,
-        private readonly StoreManagerInterface $storeManager,
-        private readonly LoggerInterface $logger
+        TransportBuilder $transportBuilder,
+        StateInterface $inlineTranslation,
+        StoreManagerInterface $storeManager,
+        LoggerInterface $logger
     ) {
         parent::__construct($context);
+        $this->transportBuilder = $transportBuilder;
+        $this->inlineTranslation = $inlineTranslation;
+        $this->storeManager = $storeManager;
+        $this->logger = $logger;
     }
 
+    /**
+     * Send transactional email
+     *
+     * @param string $recipientEmail
+     * @param string $recipientName
+     * @param array $templateVars
+     * @return void
+     */
     public function send(
         string $recipientEmail,
         string $recipientName,
