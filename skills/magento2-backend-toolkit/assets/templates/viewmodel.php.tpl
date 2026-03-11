@@ -8,12 +8,23 @@ use Magento\Framework\View\Element\Block\ArgumentInterface;
 
 class {ViewModelName} implements ArgumentInterface
 {
+    // /**
+    //  * @var \Some\Dependency
+    //  */
+    // private SomeDependency $dependency;
+
+    /**
+     * @param \Some\Dependency $dependency
+     */
     public function __construct(
         // inject dependencies here
     ) {
+        // $this->dependency = $dependency;
     }
 
     /**
+     * Get items
+     *
      * @return array
      */
     public function getItems(): array

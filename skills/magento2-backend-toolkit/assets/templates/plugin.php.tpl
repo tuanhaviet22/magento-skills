@@ -9,7 +9,11 @@ use {Target\Class\Full\Path};
 class {PluginName}
 {
     /**
-     * Before Plugin
+     * Before plugin for {MethodName}
+     *
+     * @param \{TargetClass} $subject
+     * @param mixed ...$args
+     * @return array
      */
     // public function before{MethodName}(
     //     {TargetClass} $subject,
@@ -20,7 +24,11 @@ class {PluginName}
     // }
 
     /**
-     * After Plugin
+     * After plugin for {MethodName}
+     *
+     * @param \{TargetClass} $subject
+     * @param mixed $result
+     * @return mixed
      */
     // public function after{MethodName}(
     //     {TargetClass} $subject,
@@ -31,7 +39,12 @@ class {PluginName}
     // }
 
     /**
-     * Around Plugin
+     * Around plugin for {MethodName}
+     *
+     * @param \{TargetClass} $subject
+     * @param callable $proceed
+     * @param mixed ...$args
+     * @return mixed
      */
     // public function around{MethodName}(
     //     {TargetClass} $subject,
